@@ -1,0 +1,2 @@
+ALTER TABLE record
+ADD COLUMN description VARCHAR(50);
