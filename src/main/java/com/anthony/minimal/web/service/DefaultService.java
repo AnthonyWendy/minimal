@@ -2,7 +2,7 @@ package com.anthony.minimal.web.service;
 
 import com.anthony.minimal.web.Tools.Adapters;
 import com.anthony.minimal.web.Tools.Validators;
-import com.anthony.minimal.web.entity.Entity;
+import com.anthony.minimal.web.entity.DefaultEntity;
 import com.anthony.minimal.web.repository.DefaultRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -14,7 +14,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
-public class DefaultService<T extends Entity, R extends DefaultRepository<T>> {
+public class DefaultService<T extends DefaultEntity, R extends DefaultRepository<T>> {
 
     @Autowired
     @Getter
@@ -52,7 +52,7 @@ public class DefaultService<T extends Entity, R extends DefaultRepository<T>> {
 
     @Transactional
     public void delete(Long id) {
-        T entity = repository.findOne(id);
+        T entity = findOne(id);
         if (entity == null) {
             throw new EntityNotFoundException("Entity not found with id: " + id);
         }
@@ -62,7 +62,8 @@ public class DefaultService<T extends Entity, R extends DefaultRepository<T>> {
     }
 
     public T findOne(Long id) {
-        return repository.findOne(id);
+
+        return repository.findById(id).orElse(null);
     }
 
     public Optional<T> findById(Long id) {
@@ -76,9 +77,9 @@ public class DefaultService<T extends Entity, R extends DefaultRepository<T>> {
         return repository.findAll(pageable);
     }
 
-    public Page<T> search(String search, Long idCompany, Pageable pageable) {
+    public Page<T> search(String search, Pageable pageable) {
         String adaptedSearch = Adapters.adaptForFullTextSearch(search);
-        return repository.search(adaptedSearch, idCompany, pageable);
+        return repository.search(adaptedSearch, pageable);
     }
 
 

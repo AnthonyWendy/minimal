@@ -5,7 +5,7 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public interface Entity extends Serializable {
+public interface DefaultEntity extends Serializable {
 
     Long getId();
 

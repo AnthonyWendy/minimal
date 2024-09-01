@@ -1,10 +1,11 @@
 package com.anthony.minimal.web.controller;
 
-import com.anthony.minimal.web.entity.Entity;
+import com.anthony.minimal.web.entity.DefaultEntity;
 import com.anthony.minimal.web.service.DefaultService;
 
 import java.net.URI;
 import java.util.Arrays;
+
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.util.UriComponentsBuilder;
 
-public class DefaultController<T extends Entity, S extends DefaultService<T, ?>>  {
+public class DefaultController<T extends DefaultEntity, S extends DefaultService<T, ?>> {
 
     @Autowired
-    @Getter
     protected S service;
 
     @PostMapping("/")
@@ -38,9 +38,9 @@ public class DefaultController<T extends Entity, S extends DefaultService<T, ?>>
     }
 
     @GetMapping({"/", ""})
-    public ResponseEntity<Page<T>> doGetAll(String search, Long idCompany, Pageable pageable) {
+    public ResponseEntity<Page<T>> doGetAll(String search, Pageable pageable) {
         if (search != null && !search.isEmpty()) {
-            return ResponseEntity.ok(service.search(search, idCompany, pageable));
+            return ResponseEntity.ok(service.search(search, pageable));
         }
         return ResponseEntity.ok(service.findAll(pageable));
     }
