@@ -9,11 +9,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+
 @Repository
 public interface RecordRepository extends DefaultRepository<Record> {
 
     @Override
-    @Query("SELECT c FROM Record c WHERE c.description ILIKE %:search%")
+    @Query("SELECT r FROM Record r WHERE r.description ILIKE %:search%")
     Page<Record> search(@Param("search") String search, Pageable pageable);
+
+    @Query("Select r.registrationDate FROM Record r WHERE r.id = :id")
+    LocalDateTime getRegistrationDate(@Param("id") Long id);
 
 }

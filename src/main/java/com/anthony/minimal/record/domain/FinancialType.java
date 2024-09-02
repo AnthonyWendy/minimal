@@ -1,4 +1,4 @@
-package com.anthony.minimal.category.domain;
+package com.anthony.minimal.record.domain;
 
 public enum FinancialType {
     INCOME,
