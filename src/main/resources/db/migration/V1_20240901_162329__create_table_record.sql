@@ -6,6 +6,6 @@ CREATE TABLE IF NOT EXISTS "record" (
 	"category_id" bigint NOT NULL,
 	"bank_id" bigint NOT NULL,
 	"payment_date" timestamp with time zone NOT NULL,
-	"registretion_date" timestamp with time zone NOT NULL,
+	"registration_date" timestamp with time zone NOT NULL,
 	PRIMARY KEY ("id")
 );

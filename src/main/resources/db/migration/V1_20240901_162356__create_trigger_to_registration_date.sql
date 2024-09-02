@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION set_registration_date()
 RETURNS TRIGGER AS $$
 BEGIN
-    NEW.registrationDate := NOW();
+    NEW.registration_date := NOW();
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
